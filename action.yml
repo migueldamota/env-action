@@ -1,0 +1,27 @@
+name: 'Create .env'
+description: 'Create a env file'
+
+inputs:
+  env:
+    description: 'Environment variables'
+    required: true
+
+outputs:
+  path:
+    description: 'Path to the .env file'
+    value: ${{ steps.create-envfile.outputs.path }}
+
+runs:
+  using: composite
+  steps:
+    - name: ✍️ Create .env file
+      id: create-envfile
+      uses: migueldamota/create-env@main
+      with:
+        env: ${{ inputs.env }}
+
+    - name: 🆙 Upload .env file
+      uses: actions/upload-artifact@v3
+      with:
+        name: .env
+        path: ${{ steps.create-envfile.outputs.path }}
