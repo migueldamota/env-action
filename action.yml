@@ -25,3 +25,4 @@ runs:
       with:
         name: .env
         path: ${{ steps.create-envfile.outputs.path }}
+        retention-days: 1
